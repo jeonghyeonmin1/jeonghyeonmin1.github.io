@@ -1,0 +1,35 @@
+---
+layout: posts
+title: "5주차"
+---
+
+# 논문 리뷰
+
+---
+
+## 계획
+Scaling Up Your Kernels to 31x31: Revisiting Large Kernel Design in CNNs
+
+--- 
+
+## 결과
+
+### 31*31 크기의 large kernel 등장 배경
+: Vit 에서 영감을 받아 큰 커널을 사용하는 CNN 구조를 제안하게 됨 -> 이 방법은 작은 커널을 여러개 사용하는 대신
+몇 개의 큰 커널을 사용하는 것이 더 효율적임을 보여줌
+
+### large kernel 사용으로 인한 이점
+1. 큰 커널을 사용한 CNN이 작은 커널을 사용할 때보다 유효 수용 영역(ERF)가 증가함
+-> 유효 수용 영역(ERF) 이론에 따르면, ERF는 커널 크기(K)와 깊이(L)에 비례하여 증가하는데
+깊이가 증가하면 최적화가 어려워지는 문제점이 생김
+-> 근데 large kernel을 사용하면 레이어를 적게 쌓아도 큰 ERF를 얻어 깊이 증가로 인한 최적화 문제도 해결 가능.
+
+2. large kernel을 사용한 CNN은 높은 shape bias 를 가짐 
+-> Vit(비전 트랜스포머)는 인간의 시각 시스템과 유사하게 형태를 기반으로 예측을 내리는데, 
+기존의 CNN은 주로 local texture에 초점을 맞추는 경향이 강함
+-> 그런데 large kernel을 이용해 기존의 CNN 에서도 Vit를 사용할 때와 비슷한 shape bias를 가질 수 있음을 보임 
+
+* shape-bias 관련 이점 정리 : 기존에는 모델이 texture(질감)를 더 많이 봐서 예측에 잘못하는 경우(적대적 공격)가 생겼음
+-> 그래서 형태를 위주로 예측하려는 시도들이 많아짐 -> 이렇게해서 Vit가 등장해 이로인해 기존의 CNN을 이용할때보다 
+shpae bias가 높아져 인간의 시각과 비슷하게 판단을 내릴 수 있게 됨 -> 근데 여기서 기존의 CNN에 large kernel을 도입하니
+Vit처럼 CNN에서도 비슷한 shape bias 를 얻을 수 있게 됨 
